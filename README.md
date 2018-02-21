@@ -99,6 +99,23 @@ INSERT INTO books(publisher_id, title, author, description, price, copies) VALUE
     (1, 'Algebra basica', 'Al Juarismi', 'Esto de encontrar X o Y, dependiendo', 13.50, 8);
 ~~~
 
+### INSERT INTO actions:
+
+~~~
+INSERT INTO actions (book_id, user_id, action_type) VALUES
+  (3, 2, 'venta'),
+  (6, 1, 'prestamo'),
+  (7, 7, 'prestamo'),
+(7, 7, 'devolucion'),
+  (2, 5, 'venta'),
+  (10, 9, 'venta'),
+  (18, 8, 'prestamo'),
+  (12, 4, 'venta'),
+  (1, 3, 'venta'),
+  (4, 5, 'prestamo'),
+  (5, 2, 'venta');
+~~~
+
 ### Notas:
 
 1) **UNSIGNED:** No guarda el signo del identificador.
