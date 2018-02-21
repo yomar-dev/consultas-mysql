@@ -36,6 +36,15 @@ CREATE TABLE users (
 	name VARCHAR(100) NOT NULL,
 	email VARCHAR(100) NOT NULL UNIQUE
 );
+
+
+CREATE TABLE actions (
+	action_id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	book_id INTEGER UNSIGNED NOT NULL,
+	user_id INTEGER UNSIGNED NOT NULL,
+	action_type ENUM('venta', 'prestamo', 'devolucion') NOT NULL,
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 ~~~
 
 ### Notas:
