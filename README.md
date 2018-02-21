@@ -116,6 +116,92 @@ INSERT INTO actions (book_id, user_id, action_type) VALUES
   (5, 2, 'venta');
 ~~~
 
+### Traer información del libro, que acción se realizó y el ID del usuario que realizó la acción.
+
+~~~
+SELECT a.action_id,
+	b.title,
+	a.action_type,
+	a.user_id
+FROM actions AS a
+LEFT JOIN books AS b
+	ON b.book_id = a.book_id;
+~~~
+
+### Traer información del libro, que acción se realizó y el nombre del usuario que realizó la acción.
+
+~~~
+SELECT a.action_id,
+	b.title,
+	a.action_type,
+	u.name
+FROM actions AS a
+LEFT JOIN books AS b
+	ON b.book_id = a.book_id
+LEFT JOIN users AS u
+	ON u.user_id = a.user_id;
+~~~
+
+### Traer información del libro, que acción se realizó, nombre del usuario que realizó la acción y el precio del libro.
+
+~~~
+SELECT a.action_id,
+	b.title,
+	a.action_type,
+	u.name,
+	b.price
+FROM actions AS a
+LEFT JOIN books AS b
+	ON b.book_id = a.book_id
+LEFT JOIN users AS u
+	ON u.user_id = a.user_id;
+~~~
+
+### Traer información de los libros que han sido vendidos y el precio del libro.
+
+~~~
+SELECT a.action_id,
+	b.title,
+	a.action_type,
+	u.name,
+	b.price
+FROM actions AS a
+LEFT JOIN books AS b
+	ON b.book_id = a.book_id
+LEFT JOIN users AS u
+	ON u.user_id = a.user_id
+WHERE a.action_type = 'venta';
+~~~
+
+### Traer información de los libros que no han sido vendidos de diferentes maneras.
+
+~~~
+SELECT a.action_id,
+	b.title,
+	a.action_type,
+	u.name,
+	0 AS price
+FROM actions AS a
+LEFT JOIN books AS b
+	ON b.book_id = a.book_id
+LEFT JOIN users AS u
+	ON u.user_id = a.user_id
+WHERE a.action_type <> 'venta';
+
+
+SELECT a.action_id,
+	b.title,
+	a.action_type,
+	u.name,
+	0 AS price
+FROM actions AS a
+LEFT JOIN books AS b
+	ON b.book_id = a.book_id
+LEFT JOIN users AS u
+	ON u.user_id = a.user_id
+WHERE a.action_type NOT IN ('venta');
+~~~
+
 ### Notas:
 
 1) **UNSIGNED:** No guarda el signo del identificador.
