@@ -103,3 +103,4 @@ INSERT INTO books(publisher_id, title, author, description, price, copies) VALUE
 
 1) **UNSIGNED:** No guarda el signo del identificador.
 2) **UNIQUE:** Restringe una columna para asegurarse que no se escriban valores duplicados.
+3) **Backup DB Windows:** `mysqldump -u username -ppassword -hhostname name_db > name_db.sql`
