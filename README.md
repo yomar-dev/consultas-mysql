@@ -305,6 +305,23 @@ LEFT JOIN users AS u
 ~~~
 
 
+### Realizar un descuento del 10% a los libros con ID (1, 4, 7, 8, 2).
+
+~~~
+SELECT a.action_id AS aid,
+	b.title,
+	a.action_type,
+	u.name,
+	IF (a.action_type = 'venta', b.price, 0) AS price,
+	b.book_id AS bid,
+	IF (b.book_id IN (1, 4, 7, 8, 2), b.price * .9, b.price) AS dcto
+FROM actions AS a
+LEFT JOIN books AS b
+	ON b.book_id = a.book_id
+LEFT JOIN users AS u
+	ON u.user_id = a.user_id;
+~~~
+
 ### Notas:
 
 1) **UNSIGNED:** No guarda el signo del identificador.
