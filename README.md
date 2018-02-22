@@ -277,6 +277,34 @@ WHERE a.action_type = 'venta'
 ORDER BY aid;
 ~~~
 
+
+### Condicional
+
+~~~
+SELECT a.action_id AS aid,
+	b.title,
+	a.action_type,
+	u.name,
+	IF (a.action_type = 'venta', b.price, '') AS price
+FROM actions AS a
+LEFT JOIN books AS b
+	ON b.book_id = a.book_id
+LEFT JOIN users AS u
+	ON u.user_id = a.user_id;
+
+SELECT a.action_id AS aid,
+	b.title,
+	a.action_type,
+	u.name,
+	IF (a.action_type = 'venta', b.price, 0) AS price
+FROM actions AS a
+LEFT JOIN books AS b
+	ON b.book_id = a.book_id
+LEFT JOIN users AS u
+	ON u.user_id = a.user_id;
+~~~
+
+
 ### Notas:
 
 1) **UNSIGNED:** No guarda el signo del identificador.
