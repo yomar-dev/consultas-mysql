@@ -215,6 +215,68 @@ LEFT JOIN users AS u
 WHERE a.action_type != 'venta';
 ~~~
 
+### Ejemplo de UNION
+
+~~~
+SELECT a.action_id,
+	b.title,
+	a.action_type,
+	u.name,
+	0 AS price
+FROM actions AS a
+LEFT JOIN books AS b
+	ON b.book_id = a.book_id
+LEFT JOIN users AS u
+	ON u.user_id = a.user_id
+WHERE a.action_type != 'venta'
+
+UNION
+
+SELECT a.action_id,
+	b.title,
+	a.action_type,
+	u.name,
+	b.price AS price
+FROM actions AS a
+LEFT JOIN books AS b
+	ON b.book_id = a.book_id
+LEFT JOIN users AS u
+	ON u.user_id = a.user_id
+WHERE a.action_type = 'venta';
+~~~
+
+### Ordenar por action_id el resultado del UNION
+
+~~~
+SELECT a.action_id AS aid,
+	b.title,
+	a.action_type,
+	u.name,
+	0 AS price
+FROM actions AS a
+LEFT JOIN books AS b
+	ON b.book_id = a.book_id
+LEFT JOIN users AS u
+	ON u.user_id = a.user_id
+WHERE a.action_type != 'venta'
+
+UNION
+
+SELECT a.action_id AS aid,
+	b.title,
+	a.action_type,
+	u.name,
+	b.price AS price
+FROM actions AS a
+LEFT JOIN books AS b
+	ON b.book_id = a.book_id
+LEFT JOIN users AS u
+	ON u.user_id = a.user_id
+WHERE a.action_type = 'venta'
+
+ORDER BY aid;
+~~~
+
 ### Notas:
 
 1) **UNSIGNED:** No guarda el signo del identificador.
