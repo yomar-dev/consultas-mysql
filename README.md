@@ -200,6 +200,19 @@ LEFT JOIN books AS b
 LEFT JOIN users AS u
 	ON u.user_id = a.user_id
 WHERE a.action_type NOT IN ('venta');
+
+
+SELECT a.action_id,
+	b.title,
+	a.action_type,
+	u.name,
+	0 AS price
+FROM actions AS a
+LEFT JOIN books AS b
+	ON b.book_id = a.book_id
+LEFT JOIN users AS u
+	ON u.user_id = a.user_id
+WHERE a.action_type != 'venta';
 ~~~
 
 ### Notas:
