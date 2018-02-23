@@ -322,6 +322,96 @@ LEFT JOIN users AS u
 	ON u.user_id = a.user_id;
 ~~~
 
+
+### Consultar libros almacenados con su respectiva editorial
+
+~~~
+SELECT p.name, b.title
+FROM books AS b
+JOIN publishers AS p
+WHERE b.publisher_id = p.publisher_id;
+~~~
+
+
+### Consultar libros almacenados con su respectiva editorial, precio y número de copias
+
+~~~
+SELECT p.name, b.title, b.price, b.copies
+FROM books AS b
+JOIN publishers AS p
+WHERE b.publisher_id = p.publisher_id;
+~~~
+
+
+### Consultar cuanto dinero hay en stock por cada una de las editoriales.
+
+~~~
+SELECT
+	p.publisher_id AS pid, 
+	p.name,
+	SUM(b.price * b.copies)
+FROM books AS b
+JOIN publishers AS p
+WHERE b.publisher_id = p.publisher_id
+GROUP BY pid;
+~~~
+
+
+### Consultar cuanto dinero hay en stock por cada una de las editoriales sin incluir los libros menores a $15.
+
+~~~
+SELECT
+	p.publisher_id AS pid, 
+	p.name,
+	SUM(IF(b.price >= 15, b.price * b.copies, 0)) AS total
+FROM books AS b
+JOIN publishers AS p
+WHERE b.publisher_id = p.publisher_id
+GROUP BY pid;
+~~~
+
+
+### Consultar cantidad de libros por editorial
+
+~~~
+SELECT
+	p.publisher_id AS pid, 
+	p.name,
+	COUNT(b.book_id) AS libros
+FROM books AS b
+LEFT JOIN publishers AS p ON p.publisher_id = b.publisher_id
+GROUP BY pid;
+~~~
+
+
+### Sumar la cantidad de libros por editorial sin tener en cuenta los menores a $15
+
+~~~
+SELECT
+	p.publisher_id AS pid, 
+	p.name,
+	COUNT(b.book_id) AS libros,
+	SUM(IF(b.price >= 15, 1, 0)) AS libros_en_venta
+FROM books AS b
+LEFT JOIN publishers AS p ON p.publisher_id = b.publisher_id
+GROUP BY pid;
+~~~
+
+
+### Consultar cuanto dinero y cuantos libros puedo vender por editorial, teniendo en cuenta que solo se pueden vender los mayores a $15.
+
+~~~
+SELECT
+	p.publisher_id AS pid, 
+	p.name,
+	SUM(IF(b.price >= 15, b.price * b.copies, 0)) AS total,
+	SUM(IF(b.price >= 15, 1, 0)) AS libros_por_vender
+FROM books AS b
+JOIN publishers AS p
+WHERE b.publisher_id = p.publisher_id
+GROUP BY pid;
+~~~
+
 ### Notas:
 
 1) **UNSIGNED:** No guarda el signo del identificador.
