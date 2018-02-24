@@ -412,6 +412,13 @@ WHERE b.publisher_id = p.publisher_id
 GROUP BY pid;
 ~~~
 
+
+### Agregar nueva columna a la table 'users'
+
+~~~
+ALTER TABLE users ADD COLUMN active TINYINT(1) NOT NULL DEFAULT '1';
+~~~
+
 ### Notas:
 
 1) **UNSIGNED:** No guarda el signo del identificador.
